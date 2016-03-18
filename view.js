@@ -73,8 +73,9 @@ function start(){
 function reset(){
     //reset the game
     game.stop();
-    createBoard(bsize);
+    
     console.log("resetting board");
+    updateBoard(createBoard(bsize));
 }
 
 function updateBoard(board){

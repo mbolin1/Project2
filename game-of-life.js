@@ -115,25 +115,27 @@ Game.prototype.updateAnts = function(){
 	//console.log('done');
 	
 	if(!continueInterval){
-		//this.stop();
+            this.stop();
 	}
 	
 	this.board = newBoard;
-	//updateBoard(newBoard);
+	updateBoard(newBoard);
 	//return newBoard;
-}
+};
 
 
-Game.prototype.start = function(speed=500){
-	this.intervalList.push(setInterval(this.updateAnts.bind(this), speed));
+Game.prototype.start = function(speed){
+    if(speed === undefined || speed <= 0)
+        speed = 500;
+    this.intervalList.push(setInterval(this.updateAnts.bind(this), speed));
 };
 
 Game.prototype.stop = function(){
-	while(this.intervalList != 0){
+	while(this.intervalList.length !== 0){
 		clearInterval(this.intervalList.pop());
 	}
 	
-}
+};
 
 /*
 - Any live cell with fewer than two live neighbours dies, as if caused by under-population.

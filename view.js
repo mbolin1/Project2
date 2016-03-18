@@ -43,7 +43,6 @@ function chngColor(){
         this.style.backgroundColor = "lightBlue";
     else
         this.style.backgroundColor = "gray";
-    start();
 }
 
 function stop(){

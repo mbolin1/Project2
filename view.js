@@ -7,15 +7,16 @@ var stopBtn = document.getElementById("stop-btn");
 stopBtn.addEventListener("click",stop,false);
         
 function changeSize(){
+    console.log("changing board size");
     stop();
     var boardSize =  document.getElementById("table-size").value;
-    var board =  document.getElementById("board");
-    while(board.firstChild){
-        board.removeChild(board.firstChild);
+    var dispboard =  document.getElementById("board");
+    while(dispboard.firstChild){
+        dispboard.removeChild(board.firstChild);
     }
     for(var row = 0; row < boardSize;row++){
         var tRow = document.createElement("tr");
-        board.appendChild(tRow);
+        dispboard.appendChild(tRow);
         for(var col = 0; col < boardSize;col++){
             var bcell = document.createElement("td");
             bcell.setAttribute("id","c"+row+"-"+col);
@@ -39,4 +40,9 @@ function chngColor(){
 function stop(){
     //call to stop the game
     console.log("stopping game");
+}
+
+function start(){
+    //start the game
+    console.log("starting game");
 }

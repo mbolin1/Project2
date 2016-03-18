@@ -27,24 +27,36 @@ function createGame(SIZE){
 		//console.log(ant);
 		board[ant.r][ant.c] = true;
 	}
-	board.length = SIZE;
+	
+	return board;
+	//board.length = SIZE;
 	//console.log("The board is: " + board);
 	//console.log(board);
 }
 
-function updateAnts(board, SIZE){
-	var newBoard = createBoard(SIZE);
+function gameTest(){
+	var board = [
+				 [true, false, true, true],
+				 [false, true, false, false],
+				 [true, false, false, false],
+				 [true, true, true, true]
+				];
+				
+	board.length = 4;
 	
-	for(var r = 0; r < SIZE; r++){
-		for(var c = 0; c < SIZE; c++){
-			//newBoard[r][c] = aliveCheck(board, r, c, 4);
-			//console.log(newBoard[r][c]);
-			//console.log(' ');
-		}
-		//console.log('-----------------------');
-	}
+	//board = updateAnts(board, 4);
 	
-	return newBoard;
+	console.log('beep: ' + board);
+	console.log(board);
+}
+
+
+function Game(board, SIZE){
+	this.board = board;
+	this.SIZE = SIZE;
+	
+	this.intervalList;
+	
 }
 
 function aliveCheck(board, r, c, SIZE){
@@ -58,7 +70,7 @@ function aliveCheck(board, r, c, SIZE){
 	liveN += aliveCount(board, r+1, c-1, SIZE);
 	liveN += aliveCount(board, r+1, c, SIZE);
 	liveN += aliveCount(board, r+1, c+1, SIZE);
-	console.log(liveN);
+	//console.log(liveN);
 	
 	switch(liveN){
 		case 3:
@@ -83,21 +95,32 @@ function aliveCount(board, r, c, SIZE){
 		return 0;
 }
 
-function gameTest(){
-	var board = [
-				 [true, false, true, true],
-				 [false, true, false, false],
-				 [true, false, false, false],
-				 [true, true, true, true]
-				];
-				
-	board.length = 4;
-	
-	board = updateAnts(board, 4);
-	
-	console.log('beep: ' + board);
-	console.log(board);
+Game.prototype.updateAnts = function(){
+	var newBoard = createBoard(this.SIZE);
+	console.log('start');
+	//console.log(this.board + ' ' + this.SIZE  );
+	for(var r = 0; r < this.SIZE; r++){
+		for(var c = 0; c < this.SIZE; c++){
+			newBoard[r][c] = aliveCheck(this.board, r, c, this.SIZE);
+			//console.log(newBoard[r][c]);
+			//console.log(' ');
+		}
+		//console.log('-----------------------');
+	}
+	//console.log('done');
+	return newBoard;
 }
+
+
+Game.prototype.start = function(speed=500){
+	this.intervalList = (setInterval(this.updateAnts.bind(this), speed));
+};
+
+Game.prototype.stop = function(){
+	clearInterval(this.intervalList);
+}
+
+
 /*
 - Any live cell with fewer than two live neighbours dies, as if caused by under-population.
 - Any live cell with two or three live neighbours lives on to the next generation.

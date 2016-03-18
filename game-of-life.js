@@ -53,6 +53,7 @@ function gameTest(){
 
 function Game(board){
 	this.board = board;
+	this.speed = 500;
 	
 	this.intervalList = [];
 	
@@ -120,15 +121,27 @@ Game.prototype.updateAnts = function(){
 	
 	this.board = newBoard;
 	updateBoard(newBoard);
-	//return newBoard;
 };
 
 
-Game.prototype.start = function(speed){
-    if(speed === undefined || speed <= 0)
-        speed = 500;
-    this.intervalList.push(setInterval(this.updateAnts.bind(this), speed));
+Game.prototype.start = function(){
+    this.intervalList.push(setInterval(this.updateAnts.bind(this), this.speed));
 };
+
+Game.prototype.speedup = function(){
+	if(this.speed >= 200){
+		this.speed = this.speed - 10;
+	}
+};
+
+Game.prototype.slowDown = function(){
+	this.speed = this.speed + 10;
+};
+
+Game.prototype.stopOne = function(){
+	clearInterval(this.intervalList.pop());
+};
+
 
 Game.prototype.stop = function(){
 	while(this.intervalList.length !== 0){

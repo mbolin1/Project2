@@ -13,24 +13,18 @@ function createBoard(SIZE){
 	}
 	
 	return board;
-	//console.log(board);
 }
 
 function createGame(SIZE){
 	var start = (Math.random()  * (SIZE*SIZE/3)) + 10;
-	//console.log("Number of Ants to be created: " + start);
 	var board = createBoard(SIZE);
 	
 	for(var i = 1; i < start; i++){
 		var ant = new Ant(SIZE);
-		//console.log("An ant is: " + ant);
-		//console.log(ant);
 		board[ant.r][ant.c] = true;
 	}
 	return board;
-	//board.length = SIZE;
-	//console.log("The board is: " + board);
-	//console.log(board);
+
 }
 
 function gameTest(){
@@ -42,8 +36,6 @@ function gameTest(){
 				];
 				
 	board.length = 4;
-	
-	//board = updateAnts(board, 4);
 	
 	console.log('beep: ' + board);
 	console.log(board);
@@ -69,7 +61,6 @@ function aliveCheck(board, r, c){
 	liveN += aliveCount(board, r+1, c-1);
 	liveN += aliveCount(board, r+1, c);
 	liveN += aliveCount(board, r+1, c+1);
-	//console.log(liveN);
 	
 	switch(liveN){
 		case 3:
@@ -82,12 +73,10 @@ function aliveCheck(board, r, c){
 }
 
 function aliveCount(board, r, c){
-	//console.log(r + ' ' + c + ' ' + SIZE);
 	if(r >= 0 && r < board.length && c >= 0 && c < board.length)
 		var value = board[r][c];
 	else
 		return 0;
-	//console.log('boop');
 	if(value)
 		return 1;
 	else
@@ -97,7 +86,6 @@ function aliveCount(board, r, c){
 Game.prototype.updateAnts = function(){
 	var newBoard = createBoard(this.board.length);
 	console.log('start');
-	//console.log(this.board + ' ' + this.SIZE  );
 	
 	var continueInterval = false;
 	
@@ -107,13 +95,9 @@ Game.prototype.updateAnts = function(){
 			if(newBoard[r][c]){
 				continueInterval = true;
 			}
-			//console.log(newBoard[r][c]);
-			//console.log(' ');
 		}
-		//console.log('-----------------------');
 	}
-	//console.log('done');
-	
+
 	if(!continueInterval){
             this.stop();
 	}
@@ -124,20 +108,16 @@ Game.prototype.updateAnts = function(){
 
 
 Game.prototype.start = function(){
-    this.intervalList.push(setInterval(this.updateAnts.bind(this), this.speed));
-};
-
-Game.prototype.speedup = function(){
-	if(this.speed >= 200){
-		this.speed = this.speed - 10;
+	if(intervalList.length < 1){
+		this.intervalList.push(setInterval(this.updateAnts.bind(this), this.speed));
 	}
 };
 
-Game.prototype.slowDown = function(){
-	this.speed = this.speed + 10;
+Game.prototype.speedUp = function(){
+	this.intervalList.push(setInterval(this.updateAnts.bind(this)
 };
 
-Game.prototype.stopOne = function(){
+Game.prototype.slowDown = function(){
 	clearInterval(this.intervalList.pop());
 };
 
@@ -148,10 +128,3 @@ Game.prototype.stop = function(){
 	}
 	
 };
-
-/*
-- Any live cell with fewer than two live neighbours dies, as if caused by under-population.
-- Any live cell with two or three live neighbours lives on to the next generation.
-- Any live cell with more than three live neighbours dies, as if by over-population.
-- Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-*/

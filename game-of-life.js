@@ -23,6 +23,7 @@ function createGame(SIZE){
 		var ant = new Ant(SIZE);
 		board[ant.r][ant.c] = true;
 	}
+	
 	return board;
 
 }
@@ -47,7 +48,6 @@ function Game(board){
 	this.speed = 500;
 	
 	this.intervalList = [];
-	
 }
 
 function aliveCheck(board, r, c){
@@ -85,9 +85,8 @@ function aliveCount(board, r, c){
 
 Game.prototype.updateAnts = function(){
 	var newBoard = createBoard(this.board.length);
-	console.log('start');
 	
-	var continueInterval = false;
+	var continueInterval = false;	//if no ants left stops
 	
 	for(var r = 0; r < this.board.length; r++){
 		for(var c = 0; c < this.board.length; c++){
@@ -106,7 +105,6 @@ Game.prototype.updateAnts = function(){
 	updateBoard(newBoard);
 };
 
-
 Game.prototype.start = function(){
 	if(this.intervalList.length < 1){
 		this.intervalList.push(setInterval(this.updateAnts.bind(this), this.speed));
@@ -114,11 +112,23 @@ Game.prototype.start = function(){
 };
 
 Game.prototype.speedUp = function(){
+	if(this.speed > 40){
+		this.speed -= 10;
+	}
+	
+	clearInterval(this.intervalList.pop());
+	//console.log(this.speed);
 	this.intervalList.push(setInterval(this.updateAnts.bind(this), this.speed));
 };
 
-Game.prototype.slowDown = function(){
+Game.prototype.speedDown = function(){
 	clearInterval(this.intervalList.pop());
+	//if(this.speed < 1000){
+		this.speed += 10;
+	//}
+	
+	//console.log(this.speed);
+	this.intervalList.push(setInterval(this.updateAnts.bind(this), this.speed));
 };
 
 

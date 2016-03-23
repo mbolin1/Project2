@@ -114,7 +114,7 @@ Game.prototype.start = function(){
 };
 
 Game.prototype.speedUp = function(){
-	this.intervalList.push(setInterval(this.updateAnts.bind(this)
+	this.intervalList.push(setInterval(this.updateAnts.bind(this), this.speed));
 };
 
 Game.prototype.slowDown = function(){

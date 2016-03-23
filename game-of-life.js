@@ -50,38 +50,6 @@ function Game(board){
 	this.intervalList = [];
 }
 
-function aliveCheck(board, r, c){
-	var liveN = 0;
-	
-	liveN += aliveCount(board, r-1, c-1);
-	liveN += aliveCount(board, r-1, c);
-	liveN += aliveCount(board, r-1, c+1);
-	liveN += aliveCount(board, r, c-1);
-	liveN += aliveCount(board, r, c+1);
-	liveN += aliveCount(board, r+1, c-1);
-	liveN += aliveCount(board, r+1, c);
-	liveN += aliveCount(board, r+1, c+1);
-	
-	switch(liveN){
-		case 3:
-			return true;
-		case 2:
-			return board[r][c];
-		default:
-			return false;
-	}
-}
-
-function aliveCount(board, r, c){
-	if(r >= 0 && r < board.length && c >= 0 && c < board.length)
-		var value = board[r][c];
-	else
-		return 0;
-	if(value)
-		return 1;
-	else
-		return 0;
-}
 
 Game.prototype.updateAnts = function(){
 	var newBoard = createBoard(this.board.length);
@@ -138,3 +106,36 @@ Game.prototype.stop = function(){
 	}
 	
 };
+
+function aliveCheck(board, r, c){
+	var liveN = 0;
+	
+	liveN += aliveCount(board, r-1, c-1);
+	liveN += aliveCount(board, r-1, c);
+	liveN += aliveCount(board, r-1, c+1);
+	liveN += aliveCount(board, r, c-1);
+	liveN += aliveCount(board, r, c+1);
+	liveN += aliveCount(board, r+1, c-1);
+	liveN += aliveCount(board, r+1, c);
+	liveN += aliveCount(board, r+1, c+1);
+	
+	switch(liveN){
+		case 3:
+			return true;
+		case 2:
+			return board[r][c];
+		default:
+			return false;
+	}
+}
+
+function aliveCount(board, r, c){
+	if(r >= 0 && r < board.length && c >= 0 && c < board.length)
+		var value = board[r][c];
+	else
+		return 0;
+	if(value)
+		return 1;
+	else
+		return 0;
+}

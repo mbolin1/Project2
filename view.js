@@ -14,19 +14,21 @@ var resetBtn = document.getElementById("reset-btn");
 resetBtn.addEventListener("click",reset,false);
 var randomBtn = document.getElementById("random-btn");
 randomBtn.addEventListener("click",random,false);
+
 var colorBtn = document.getElementById("color-btn");
 colorBtn.addEventListener("change",colorCh,false);
+
 var supBtn = document.getElementById("sup-btn");
-supBtn.addEventListener("change",sup,false);
+supBtn.addEventListener("click",sup,false);
 var sdownBtn = document.getElementById("sdown-btn");
-sdownBtn.addEventListener("change",sdown,false);
+sdownBtn.addEventListener("click",sdown,false);
 
 function sup(){
 	game.speedUp();
 }
 
 function sdown(){
-	game.speedDown();
+	game.slowDown();
 }
 
 function colorCh(){
@@ -55,7 +57,7 @@ function changeSize(){
 			bcell.style.width = "20px";
 			bcell.style.backgroundColor = "gray";
 			bcell.style.textAlign = 'center';
-			//bcell.style.border = "solid black 1px";
+			bcell.style.border = "solid black 1px";
 			bcell.addEventListener("click",chngColor,false);
 			tRow.appendChild(bcell);
 		}
@@ -64,10 +66,20 @@ function changeSize(){
 
 function chngColor(){
 	stop();
-	if(this.style.backgroundColor === color)
+	if(this.style.backgroundColor === "gray"){
 		this.style.backgroundColor = color;
-	else
+		if(!this.firstChild){
+			var ant = document.createElement('img');
+			ant.src = 'ant.gif';
+			this.appendChild(ant);
+		}
+	}
+	else{
 		this.style.backgroundColor = "gray";
+		if(this.firstChild){
+			this.removeChild(this.firstChild);
+		}
+	}
 }
 
 function stop(){
@@ -87,7 +99,9 @@ function start(){
 			if(dscell.style.backgroundColor === "gray"){
 				dsboard[row][col] = false;
 			}else{
+
 				dsboard[row][col] = true;
+				
 			}
 		}
 	}

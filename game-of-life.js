@@ -27,7 +27,6 @@ function createGame(SIZE){
 		//console.log(ant);
 		board[ant.r][ant.c] = true;
 	}
-	
 	return board;
 	//board.length = SIZE;
 	//console.log("The board is: " + board);

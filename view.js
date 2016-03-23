@@ -43,10 +43,8 @@ function sdown(){
 }
 
 function colorCh(){
-	game.stop();
 	color = document.getElementById('color-btn').value;
 	updateBoard(game.board);
-	game.start();
 	console.log('color change on color button change');
 }
 

@@ -108,7 +108,7 @@ Game.prototype.updateAnts = function(){
 
 
 Game.prototype.start = function(){
-	if(intervalList.length < 1){
+	if(this.intervalList.length < 1){
 		this.intervalList.push(setInterval(this.updateAnts.bind(this), this.speed));
 	}
 };

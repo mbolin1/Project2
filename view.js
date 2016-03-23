@@ -22,13 +22,24 @@ var supBtn = document.getElementById("sup-btn");
 supBtn.addEventListener("click",sup,false);
 var sdownBtn = document.getElementById("sdown-btn");
 sdownBtn.addEventListener("click",sdown,false);
+var dfltBtn = document.getElementById("dflt-btn");
+dfltBtn.addEventListener("click",dflt,false);
+
+function dflt(){
+	game.speed = 500;
+	game.stop();
+	game.start();
+	console.log('setting default speed');
+}
 
 function sup(){
 	game.speedUp();
+	console.log('speeding up');
 }
 
 function sdown(){
 	game.speedDown();
+	console.log('slowing down');
 }
 
 function colorCh(){
@@ -36,6 +47,7 @@ function colorCh(){
 	color = document.getElementById('color-btn').value;
 	updateBoard(game.board);
 	game.start();
+	console.log('color change on color button change');
 }
 
 function changeSize(){
@@ -65,7 +77,6 @@ function changeSize(){
 }
 
 function chngColor(){
-	stop();
 	if(this.style.backgroundColor === "gray"){
 		this.style.backgroundColor = color;
 		if(!this.firstChild){
@@ -80,6 +91,9 @@ function chngColor(){
 			this.removeChild(this.firstChild);
 		}
 	}
+	game.board = retBoard();
+	
+	console.log('change color on td click');
 }
 
 function stop(){
@@ -91,6 +105,12 @@ function stop(){
 function start(){
 	//start the game
 	console.log("starting game");
+	
+	game.board = retBoard();
+	game.start();
+}
+
+function retBoard(){
 	var dsboard = new Array(bsize);
 	for(var row = 0; row < bsize;row++){
 		dsboard[row] =  new Array(bsize);
@@ -99,14 +119,11 @@ function start(){
 			if(dscell.style.backgroundColor === "gray"){
 				dsboard[row][col] = false;
 			}else{
-
 				dsboard[row][col] = true;
-				
 			}
 		}
 	}
-	game.board = dsboard;
-	game.start();
+	return dsboard;
 }
 
 function reset(){
@@ -114,6 +131,7 @@ function reset(){
 	game.stop();
 	console.log("resetting board");
 	updateBoard(createBoard(bsize));
+	game.speed = 500;
 }
 
 function updateBoard(board){
@@ -138,7 +156,9 @@ function updateBoard(board){
 }
 
 function random(){
+	var spd = game.speed;
 	reset();
+	game.speed = spd;
 	dsboard = createGame(bsize);
 	updateBoard(dsboard);
 	game.board =  dsboard;

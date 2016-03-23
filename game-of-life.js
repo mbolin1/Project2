@@ -16,7 +16,7 @@ function createBoard(SIZE){
 }
 
 function createGame(SIZE){
-	var start = (Math.random()  * (SIZE*SIZE/3)) + 10;
+	var start = (Math.random()  * (SIZE*SIZE));//Math.floor(SIZE*SIZE*.15);
 	var board = createBoard(SIZE);
 	
 	for(var i = 1; i < start; i++){
@@ -64,7 +64,7 @@ Game.prototype.updateAnts = function(){
 			}
 		}
 	}
-
+	
 	if(!continueInterval){
             this.stop();
 	}
@@ -106,7 +106,6 @@ Game.prototype.stop = function(){
 	while(this.intervalList.length !== 0){
 		clearInterval(this.intervalList.pop());
 	}
-	
 };
 
 function aliveCheck(board, r, c){

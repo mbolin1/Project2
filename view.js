@@ -1,5 +1,6 @@
 
 var color =  '#80ffff';
+document.getElementById('color-btn').value = color;
 var bsize = document.getElementById("table-size").value;
 var game = new Game(createBoard(bsize),bsize);
 changeSize();
@@ -15,8 +16,18 @@ var randomBtn = document.getElementById("random-btn");
 randomBtn.addEventListener("click",random,false);
 var colorBtn = document.getElementById("color-btn");
 colorBtn.addEventListener("change",colorCh,false);
-document.getElementById('color-btn').value = color;
+var supBtn = document.getElementById("sup-btn");
+supBtn.addEventListener("change",sup,false);
+var sdownBtn = document.getElementById("sdown-btn");
+sdownBtn.addEventListener("change",sdown,false);
 
+function sup(){
+	game.speedUp();
+}
+
+function sdown(){
+	game.speedDown();
+}
 
 function colorCh(){
 	game.stop();
@@ -43,7 +54,8 @@ function changeSize(){
 			bcell.style.height = "20px";
 			bcell.style.width = "20px";
 			bcell.style.backgroundColor = "gray";
-			bcell.style.border = "solid black 1px";
+			bcell.style.textAlign = 'center';
+			//bcell.style.border = "solid black 1px";
 			bcell.addEventListener("click",chngColor,false);
 			tRow.appendChild(bcell);
 		}

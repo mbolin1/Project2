@@ -3,8 +3,13 @@
     <head>
         <title>Game of life</title>
         <style>
+            #main-window{
+              margin:0;
+              padding:0;
+            }
             #game-of-life{
-                padding: 20px;
+              margin:0;
+              padding: 5px;
             }
             #board, tr,td{
               margin:0;
@@ -20,13 +25,13 @@
     </head>
     <body>
         <div id="main-window">
-            main-window
+            
             <div id="game-of-life">
-                game-of-life
+                <strong>The Game Of LIFE!!!</strong>
                 <table id="board"></table>
             </div>
             <label>Size of board</label>
-            <input id="table-size" value="20" type="number" min="20" max="60"/>
+            <input id="table-size" value="20" type="number" min="20" max="40"/>
             <button id="set-btn">Set</button>
             <button id="start-btn">Start</button>
             <button id="stop-btn">Stop</button>
@@ -34,6 +39,11 @@
             <br/>
             <button id="random-btn">RANDOM!</button>
             <input id="color-btn" value="#80fff"type="color"/>
+            <br/>
+            <button id="sup-btn">Speed Up</button>
+            <button id="sdown-btn">Slow Down</button>
+            <br/><br/>
+            Matthew Bolin & Kayla Cook
         </div>
     
     <script src="game-of-life.js" type="text/javascript"></script>

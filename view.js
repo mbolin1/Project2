@@ -28,7 +28,7 @@ function sup(){
 }
 
 function sdown(){
-	game.slowDown();
+	game.speedDown();
 }
 
 function colorCh(){

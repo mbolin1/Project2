@@ -80,8 +80,9 @@ Game.prototype.start = function(){
 };
 
 Game.prototype.speedUp = function(){
-	if(this.speed > 40){
-		this.speed -= 10;
+	console.log(this.speed);
+	if(this.speed > 50){
+		this.speed -= 50;
 	}
 	
 	clearInterval(this.intervalList.pop());
@@ -91,9 +92,10 @@ Game.prototype.speedUp = function(){
 
 Game.prototype.speedDown = function(){
 	clearInterval(this.intervalList.pop());
-	//if(this.speed < 1000){
-		this.speed += 10;
-	//}
+	console.log(this.speed);
+	if(this.speed < 1000){
+		this.speed += 50;
+	}
 	
 	//console.log(this.speed);
 	this.intervalList.push(setInterval(this.updateAnts.bind(this), this.speed));
